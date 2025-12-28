@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>центр пива</title>
+<style>* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: radial-gradient(circle at top, #1a0000, #000);
+    color: #fff;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* ===== HEADER ===== */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: linear-gradient(90deg, #000, #220000, #000);
+    border-bottom: 2px solid #ff0000;
+    padding: 15px 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 800;
+    color: #ff0000;
+    letter-spacing: 3px;
+    text-shadow: 0 0 15px rgba(255,0,0,0.5);
+}
+
+.search input {
+    width: 260px;
+    padding: 10px 18px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    background: #111;
+    color: white;
+    border: 1px solid #ff0000;
+}
+
+.cart-summary {
+    background: #120000;
+    padding: 10px 16px;
+    border-radius: 12px;
+    border: 1px solid #ff0000;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(255,0,0,0.3);
+}
+
+/* ===== MAIN ===== */
+main {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 25px;
+    padding: 30px;
+}
+
+/* ===== PRODUCTS ===== */
+.product {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: linear-gradient(180deg, #0e0e0e, #050505);
+    border-radius: 18px;
+    padding: 15px;
+    border: 1px solid #2a0000;
+    box-shadow: 0 0 20px rgba(255,0,0,0.12);
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 0 35px rgba(255,0,0,0.45);
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    background: #000;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.card h3 {
+    margin: 5px 0;
+    color: #ff3b3b;
+}
+
+.card p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+.card button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(90deg, #ff0000, #7a0000);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255,0,0,0.4);
+}
+
+.card button:hover {
+    opacity: 0.9;
+}
+
+/* ===== CART ===== */
+.cart {
+    background: linear-gradient(180deg, #0b0b0b, #050505);
+    border-radius: 18px;
+    padding: 15px;
+    border: 1px solid #ff0000;
+    height: fit-content;
+}
+
+.cart h2 {
+    text-align: center;
+    margin-top: 0;
+    color: #ff0000;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid #2a0000;
+}
+
+.cart-item button {
+    background: none;
+    border: none;
+    color: #ff4b4b;
+    cursor: pointer;
+}
+
+.total {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 18px;
+    color: #ff3b3b;
+}
+.header-logo {
+    width: 500px;        /* ← меняй размер тут */
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 1));
+}
+@media (max-width: 600px) {
+    .header-logo {
+        width: 200px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+    <div class="logo"></div>
+
+    <img src="logo2.jpg"
+     alt="Логотип"
+     class="header-logo">
+    <h3>номер телефона:0551180789</h3>
+    <div class="search">
+        <input type="text" id="search" placeholder="Поиск комплектующих...">
+    </div>
+
+    <div class="cart-summary">
+     ваш заказ    <span id="totalHeader">0</span> com
+    </div>
+</header>
+
+<main>
+
+<!-- ===== ТВОЙ КОД ТОВАРОВ ===== -->
+<div class="product" id="products">
+    
+    <div class="card">
+        <img src="https://img.freepik.com/premium-photo/bag-pistachios-with-black-background_910054-34348.jpg">
+        <h3>фисташки</h3>
+        <p>Цена: 190сом-100г </p>
+        <p>В наличии: <span id="stock0">50</span></p>
+        <button onclick="addToCart(0)">Купить</button>
+    </div>
+
+    <div class="card">
+        <img src="https://png.pngtree.com/png-vector/20240819/ourmid/pngtree-cashews-in-an-abundant-pile-png-image_13546083.png">
+        <h3>кешю</h3>
+        <p>Цена: 160сом-100г </p>
+        <p>В наличии: <span id="stock1">50</span></p>
+        <button onclick="addToCart(1)">Купить</button>
+    </div>
+
+    <div class="card">
+        <img src="https://pngimg.com/uploads/almond/almond_PNG36.png">
+        <h3>миндаль</h3>
+        <p>Цена: 140сом-100г</p>
+        <p>В наличии: <span id="stock2">50</span></p>
+        <button onclick="addToCart(2)">Купить</button>
+    </div>
+
+    <div class="card">
+        <img src="https://png.pngtree.com/png-clipart/20210912/original/pngtree-crispy-broad-beans-png-image_6751189.jpg">
+        <h3>бобы</h3>
+        <p>Цена: 110сом-100г</p>
+        <p>В наличии: <span id="stock3">50</span></p>
+        <button onclick="addToCart(3)">Купить</button>
+    </div>
+    <div class="card">
+        <img src="https://png.pngtree.com/thumb_back/fh260/background/20230529/pngtree-colorful-trout-is-shown-swimming-on-a-black-background-image_2678008.jpg">
+        <h3>форель</h3>
+        <p>Цена: 1500сом-кг</p>
+        <p>В наличии: <span id="stock5">50</span></p>
+        <button onclick="addToCart(4)">Купить</button>
+    </div>
+  <div class="card">
+        <img src="">
+        <h3></h3>
+        <p>Цена: 300000 ₽</p>
+        <p>В наличии: <span id="stock0">10</span></p>
+        <button onclick="addToCart(6)">Купить</button>
+    </div>
+
+    <div class="card">
+        <img src="">
+        <h3></h3>
+        <p>Цена: 150000 ₽</p>
+        <p>В наличии: <span id="stock1">10</span></p>
+        <button onclick="addToCart(1)">Купить</button>
+    </div>
+
+    <div class="card">
+        <img src="">
+        <h3></h3>
+        <p>Цена: 10000 ₽</p>
+        <p>В наличии: <span id="stock2">10</span></p>
+        <button onclick="addToCart(2)">Купить</button>
+    </div>
+
+    <div class="card">
+        <img src="">
+        <h3></h3>
+        <p>Цена: 30000 ₽</p>
+        <p>В наличии: <span id="stock3">10</span></p>
+        <button onclick="addToCart(3)">Купить</button>
+    </div>
+
+    <div class="card">
+        <img src="">
+        <h3></h3>
+        <p>Цена: 7000 ₽</p>
+        <p>В наличии: <span id="stock4">10</span></p>
+        <button onclick="addToCart(4)">Купить</button>
+    </div>
+
+    <div class="card">
+        <img src="">
+        <h3></h3>
+        <p>Цена: 10000 ₽</p>
+        <p>В наличии: <span id="stock5">100</span></p>
+        <button onclick="addToCart(5)">Купить</button>
+    </div>
+
+</div>
+
+<!-- ===== CART ===== -->
+<div class="cart">
+    <h2>Корзина</h2>
+    <div id="cartItems"></div>
+    <div class="total">
+        Итого: <span id="total">0</span> com
+    </div>
+</div>
+
+</main>
+
+<script>
+const prices = [190,160,140,110,1500,10000,324,214,213,21,2134];
+const names = [" орехи фисташки"," щрехи кешю","орехи миндаль","орехи бобы","рыба форель","Блок питания","hdrt","SERg","SG","RSG","utop"];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function addToCart(i){
+    const stock = document.getElementById("stock"+i);
+    if(stock.textContent > 0){
+        stock.textContent--;
+        cart.push(i);
+        save();
+    }
+}
+
+function save(){
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+}
+
+function renderCart(){
+    const box = document.getElementById("cartItems");
+    const total = document.getElementById("total");
+    const totalHeader = document.getElementById("totalHeader");
+
+    box.innerHTML = "";
+    let sum = 0;
+
+    cart.forEach((id, index)=>{
+        sum += prices[id];
+        box.innerHTML += `
+        <div class="cart-item">
+            ${names[id]}
+            <button onclick="remove(${index})">✖</button>
+        </div>`;
+    });
+
+    total.textContent = sum;
+    totalHeader.textContent = sum;
+}
+
+function remove(i){
+    cart.splice(i,1);
+    save();
+}
+
+renderCart();
+const searchInput = document.getElementById("search");
+const cards = document.querySelectorAll(".card");
+
+searchInput.addEventListener("input", () => {
+    const value = searchInput.value.toLowerCase();
+
+    cards.forEach(card => {
+        const title = card.querySelector("h3").textContent.toLowerCase();
+
+        if (title.includes(value)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+});
+</script>
+
+</body>
+</html>
+
